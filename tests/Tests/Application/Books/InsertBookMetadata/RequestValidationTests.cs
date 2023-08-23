@@ -21,7 +21,7 @@ namespace Tests.Application.Books.InsertBookMetadata
         [Theory]
         [InlineData("")]
         [InlineData(null)]
-        public async Task Should_validate_required_fields(string noValue)
+        public void Should_validate_required_fields(string noValue)
         {
             var addBookRequest = new InsertBookMetadataRequest
             {
@@ -45,7 +45,7 @@ namespace Tests.Application.Books.InsertBookMetadata
         }
 
         [Fact]
-        public async Task Should_validate_that_origin_exists()
+        public void Should_validate_that_origin_exists()
         {
             var request = new InsertBookMetadataRequest
             {
@@ -61,7 +61,7 @@ namespace Tests.Application.Books.InsertBookMetadata
             Func<Task> insertBookMetadata = async () =>
                 await Handle<InsertBookMetadataRequest, InsertBookMetadataResponse>(request);
 
-            insertBookMetadata.Should().ThrowExactlyAsync<ValidationException>().Result.Which
+            _ = insertBookMetadata.Should().ThrowExactlyAsync<ValidationException>().Result.Which
                 .Errors.Should().HaveCount(1)
                 .And
                 .Subject.Where(a => a.ErrorMessage == "Origin is required");

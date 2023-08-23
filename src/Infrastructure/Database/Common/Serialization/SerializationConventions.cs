@@ -8,10 +8,11 @@ namespace Infrastructure.Database.Common.Serialization
 {
     public static class SerializationConventions
     {
+        [Obsolete]
         public static void SetConventions()
         {
             BsonSerializer.RegisterSerializer(typeof(DateTime), new MongoUtcDateTimeSerializer());
-            
+
             BsonDefaults.GuidRepresentationMode = GuidRepresentationMode.V3;
             BsonSerializer.RegisterSerializer(typeof(Guid), new GuidSerializer(GuidRepresentation.Standard));
 
